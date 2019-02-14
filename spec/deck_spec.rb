@@ -2,24 +2,23 @@ RSpec.describe Cards::Deck do
 
     describe "no jokers" do
 
-        @@size_of_deck_without_jokers = 52
-
         before do
+            @size_of_deck_without_jokers = 52
             @deck = Cards::Deck.new()
         end
 
         it "contains 52 cards" do
-            expect(@deck.size).to eq(@@size_of_deck_without_jokers)
+            expect(@deck.size).to eq(@size_of_deck_without_jokers)
         end
 
         it "allows selection by suit" do
-            some_cards = @deck.deal(@@size_of_deck_without_jokers)
+            some_cards = @deck.deal(@size_of_deck_without_jokers)
             result = some_cards.select { | card | card.suit == :clubs}
             expect(result.size).to eq(13)
         end
 
         it "allows selection by rank" do
-            some_cards = @deck.deal(@@size_of_deck_without_jokers)
+            some_cards = @deck.deal(@size_of_deck_without_jokers)
             result = some_cards.select { | card | card.rank == :two}
             expect(result.size).to eq(4)
         end
@@ -30,13 +29,13 @@ RSpec.describe Cards::Deck do
         end
 
         it "deals no more cards after the full deck is dealt" do
-            @deck.deal(@@size_of_deck_without_jokers)
+            @deck.deal(@size_of_deck_without_jokers)
             expect(@deck.deal(1).to_a.size).to eq(0)
         end
 
         context "when not shuffled" do
             it "deals cards in suit order" do
-                dealt_cards = @deck.deal(@@size_of_deck_without_jokers).to_a
+                dealt_cards = @deck.deal(@size_of_deck_without_jokers).to_a
                 idx = 0
                 Cards::SUITS.each do |suit|
                     Cards::RANKS.each do |rank|
